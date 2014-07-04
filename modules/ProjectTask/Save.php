@@ -51,16 +51,12 @@ if(!empty($_POST['record']))
 if(isset($_REQUEST['email_id'])) $project->email_id = $_REQUEST['email_id'];
 
 require_once('include/formbase.php');
+// populateFromPost may set this true
+$GLOBALS['check_notify'] = false;
 $project = populateFromPost('', $project);
 if(!isset($_REQUEST['milestone_flag']))
 {
 	$project->milestone_flag = '0';
-}
-
-
-$GLOBALS['check_notify'] = false;
-if (!empty($_POST['assigned_user_id']) && ($project->assigned_user_id != $_POST['assigned_user_id']) && ($_POST['assigned_user_id'] != $current_user->id)) {
-	$GLOBALS['check_notify'] = true;
 }
 
 	if(!$project->ACLAccess('Save')){
